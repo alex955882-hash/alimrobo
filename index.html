@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Abdullah Alim | Neural Nexus — Cyber-Robotic Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #020408;
+            font-family: 'Space Grotesk', monospace;
+            color: #e2e9ff;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* animated cyber background */
+        .bg-cyber {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.08), transparent 60%),
+                radial-gradient(circle at 85% 70%, rgba(150, 0, 255, 0.12), transparent 55%);
+        }
+
+        .circuit-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.05"><path d="M20,20 L40,20 L55,35 L80,35 L95,50 L130,50 M20,80 L35,80 L50,95 L75,95 L90,110 L120,110 M150,20 L170,20 L185,35 L200,35 M160,80 L175,80 L190,95" stroke="cyan" fill="none" stroke-width="1.2" stroke-dasharray="3 4"><animate attributeName="stroke-dashoffset" from="0" to="20" dur="4s" repeatCount="indefinite"/></path><circle cx="20" cy="20" r="2" fill="cyan"><animate attributeName="opacity" values="0.2;1;0.2" dur="2s" repeatCount="indefinite"/></circle><circle cx="130" cy="50" r="1.8" fill="magenta"><animate attributeName="r" values="1;2.5;1" dur="1.8s" repeatCount="indefinite"/></circle><circle cx="190" cy="95" r="1.5" fill="#0ff"><animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/></circle></svg>');
+            background-repeat: repeat;
+            background-size: 90px;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        nav {
+            padding: 28px 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            background: rgba(2, 4, 8, 0.75);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0ff, #a0f, #0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: pulse-glow 3s infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 4px rgba(0,255,255,0.3); }
+            50% { text-shadow: 0 0 14px rgba(0,255,255,0.6); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #b0e0ff;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-links a:hover {
+            color: #0ff;
+            text-shadow: 0 0 6px #0ff;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 85vh;
+            gap: 2rem;
+            padding: 3rem 0 4rem;
+        }
+        .hero-left h1 {
+            font-size: 4.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            background: linear-gradient(145deg, #fff, #0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-tagline {
+            font-size: 1rem;
+            color: #0ff;
+            margin: 1rem 0;
+            letter-spacing: 2px;
+        }
+        .cinematic-frame {
+            position: relative;
+            max-width: 380px;
+            border: 2px solid #0ff;
+            padding: 6px;
+            animation: borderGlow 3s infinite;
+        }
+        @keyframes borderGlow {
+            0%, 100% { border-color: #0ff; box-shadow: 0 0 8px #0ff; }
+            50% { border-color: #f0f; box-shadow: 0 0 20px #f0f; }
+        }
+        .cinematic-frame img {
+            width: 100%;
+            display: block;
+            filter: contrast(1.05);
+        }
+
+        /* category tabs */
+        .category-tabs {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 1.5rem;
+            border-bottom: 1px solid rgba(0,255,255,0.25);
+            padding-bottom: 1rem;
+        }
+        .cat-btn {
+            background: none;
+            border: 1px solid rgba(0,255,255,0.4);
+            color: #b0e0ff;
+            padding: 0.6rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Space Grotesk', monospace;
+            transition: 0.25s;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .cat-btn.active, .cat-btn:hover {
+            background: rgba(0,255,255,0.2);
+            border-color: #0ff;
+            color: #0ff;
+            box-shadow: 0 0 12px rgba(0,255,255,0.3);
+        }
+
+        /* project card grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .project-card {
+            background: rgba(8, 18, 30, 0.7);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(0,255,255,0.25);
+            padding: 1.6rem;
+            transition: all 0.3s cubic-bezier(0.2,0.9,0.4,1.1);
+            animation: fadeSlideUp 0.5s ease;
+        }
+        @keyframes fadeSlideUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #0ff;
+            box-shadow: 0 12px 28px rgba(0,255,255,0.2);
+        }
+        .project-icon {
+            font-size: 2.2rem;
+            color: #0ff;
+            margin-bottom: 1rem;
+        }
+
+        /* gallery with stylish captions */
+        .gallery-grid-cats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+        .gallery-item-cat {
+            background: #0a1120;
+            border: 1px solid #0ff33;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .gallery-item-cat img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.4s, filter 0.3s;
+        }
+        .gallery-item-cat:hover {
+            border-color: #0ff;
+            transform: scale(1.01);
+            box-shadow: 0 8px 24px rgba(0,255,255,0.2);
+        }
+        .gallery-item-cat:hover img {
+            transform: scale(1.02);
+            filter: brightness(1.08);
+        }
+        .img-caption {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.65);
+            font-size: 0.82rem;
+            border-top: 1px solid #0ff33;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-primary, .btn-outline {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 1px solid #0ff;
+            color: #0ff;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 500;
+        }
+        .btn-primary:hover {
+            background: #0ff;
+            color: #000;
+            box-shadow: 0 0 18px #0ff;
+        }
+        .section-head {
+            font-size: 2.2rem;
+            margin: 2rem 0 0.5rem;
+            border-left: 5px solid #0ff;
+            padding-left: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(0,255,255,0.2);
+            margin-top: 3rem;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 780px) {
+            .container { padding: 0 24px; }
+            .hero-left h1 { font-size: 2.8rem; }
+            .section-head { font-size: 1.7rem; }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.96);
+            backdrop-filter: blur(24px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .modal img {
+            max-width: 85%;
+            max-height: 85%;
+            border: 2px solid #0ff;
+            box-shadow: 0 0 35px rgba(0,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+<div class="bg-cyber"></div>
+<div class="circuit-animated"></div>
+<div id="lightboxModal" class="modal" onclick="closeLightbox()"><img id="lightboxImg" alt="enlarged view"></div>
+
+<main>
+    <div class="container">
+        <nav>
+            <div class="logo">⟡ ABDULLAH ALIM ⟡</div>
+            <div class="nav-links">
+                <a href="#home">HOME</a>
+                <a href="#projects-cats">PROJECTS</a>
+                <a href="#gallery-cats">GALLERY</a>
+                <a href="#achievements-cats">ACHIEVEMENTS</a>
+                <a href="#contact">CONTACT</a>
+            </div>
+        </nav>
+
+        <section id="home">
+            <div class="hero">
+                <div class="hero-left">
+                    <h1>ABDULLAH<br>ALIM</h1>
+                    <div class="hero-tagline">[ ROBOTICS ARCHITECT // AI CYBERNETICIST ]</div>
+                    <p style="margin: 1rem 0; max-width: 520px;">Engineering self-aware ecosystems & autonomous machines that regenerate the planet.</p>
+                    <div style="display:flex; gap:1rem; margin-top:1.8rem;">
+                        <a href="#projects-cats" class="btn-primary">⟡ EXPLORE NEXUS</a>
+                        <a href="#contact" class="btn-outline">⟡ CONNECT</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="cinematic-frame">
+                        <img src="https://lh3.googleusercontent.com/d/1ktQmBkmDgZ8bgYVPyOZ6tJRtnJQyZ9Wn=s900" alt="Abdullah Alim portrait" onerror="this.src='https://picsum.photos/id/64/500/500'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION - CATEGORIES SMART -->
+        <section id="projects-cats">
+            <h2 class="section-head">[ INNOVATION MATRIX ]</h2>
+            <div class="category-tabs" id="projectTabs">
+                <button class="cat-btn active" data-cat="all">ALL SYSTEMS</button>
+                <button class="cat-btn" data-cat="robotics">ROBOTICS</button>
+                <button class="cat-btn" data-cat="ai">AI & IOT</button>
+                <button class="cat-btn" data-cat="sustainability">SUSTAINABILITY</button>
+            </div>
+            <div class="projects-grid" id="projectsContainer"></div>
+        </section>
+
+        <!-- GALLERY SECTION - categories + stylish descriptions -->
+        <section id="gallery-cats">
+            <h2 class="section-head">[ VISUAL CHRONICLES ]</h2>
+            <div class="category-tabs" id="galleryTabs">
+                <button class="cat-btn active" data-catg="all">ALL MOMENTS</button>
+                <button class="cat-btn" data-catg="lab">LAB & PROTOTYPES</button>
+                <button class="cat-btn" data-catg="events">AWARD CEREMONIES</button>
+                <button class="cat-btn" data-catg="field">FIELD DEPLOYMENTS</button>
+            </div>
+            <div class="gallery-grid-cats" id="galleryContainer"></div>
+        </section>
+
+        <!-- ACHIEVEMENTS (prestigious framed) -->
+        <section id="achievements-cats">
+            <h2 class="section-head">[ HONORS & CREDENTIALS ]</h2>
+            <div class="projects-grid" id="achievementsContainer"></div>
+        </section>
+
+        <!-- CONTACT MODERN -->
+        <section id="contact">
+            <h2 class="section-head">[ SECURE CHANNEL ]</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:2rem; margin:2rem 0;">
+                <div style="flex:1; background:rgba(0,20,30,0.5); padding:2rem; border:1px solid #0ff;">
+                    <input type="text" placeholder="encrypted handle" id="contactName" style="width:100%; background:#010a10; border:1px solid #0ff; padding:0.8rem; margin:0.5rem 0; color:#0ff;">
+                    <input type="email" placeholder="quantum mail" id="contactEmail" style="width:100%; background:#010a10; border:1px solid #0ff; padding:0.8rem; margin:0.5rem 0; color:#0ff;">
+                    <textarea rows="3" placeholder="transmit_data..." id="contactMsg" style="width:100%; background:#010a10; border:1px solid #0ff; padding:0.8rem; color:#0ff;"></textarea>
+                    <button class="btn-primary" id="sendMsgBtn" style="width:100%; margin-top:1rem;">⟡ SEND ENCRYPTED ⟡</button>
+                </div>
+                <div style="flex:0.8; display:flex; flex-direction:column; gap:1rem;">
+                    <a href="https://www.facebook.com/abdullahalim.personal" target="_blank" class="btn-outline" style="text-align:center;"><i class="fab fa-facebook-f"></i> facebook.com/abdullahalim.personal</a>
+                    <div class="btn-outline" style="text-align:center;"><i class="fab fa-linkedin-in"></i> /in/abdullah-alim-robotics</div>
+                    <div class="btn-outline" style="text-align:center;"><i class="fab fa-github"></i> github.com/abdullah_alim</div>
+                </div>
+            </div>
+        </section>
+        <footer>© 2025 ABDULLAH ALIM // neural robotics & cyber-physical ecology // designed for the future</footer>
+    </div>
+</main>
+
+<script>
+    // ---------- DATA MODELS (enriched with descriptions and categories) ----------
+    const projectsData = [
+        { title: "AI SELF-HEALING SOIL (SHSS)", category: "sustainability", icon: "fas fa-leaf", desc: "Autonomous soil regeneration using neural sensor mesh and microbiological healing. Achieved 89% efficiency increase in field tests.", tech: "AI • Environmental Robotics • IoT • ML" },
+        { title: "AERIAL SWARM FORESTRY", category: "robotics", icon: "fas fa-drone", desc: "Coordinated drone swarms for reforestation & real-time biomass monitoring. 12k+ trees seeded per month.", tech: "Swarm Robotics • Computer Vision • Lidar" },
+        { title: "NEURAL WATER PURIFIER", category: "ai", icon: "fas fa-tint", desc: "AI-powered filtration that adapts to pollutants in real-time, reducing toxins by 94% with predictive maintenance.", tech: "Machine Learning • Smart Sensors • Edge AI" },
+        { title: "AUTONOMOUS WASTE SORTING", category: "robotics", icon: "fas fa-recycle", desc: "Robotic arm with deep learning classification — industrial waste recovery rate +78% in pilot plants.", tech: "Robotics • Deep Learning • Computer Vision" },
+        { title: "SMART AGRICULTURE NEXUS", category: "sustainability", icon: "fas fa-seedling", desc: "IoT + predictive analytics for water & nutrient optimization, raising yield 40% while reducing water usage.", tech: "IoT • Predictive Modeling • Cloud Analytics" },
+        { title: "CYBER-PHYSICAL TWIN", category: "ai", icon: "fas fa-microchip", desc: "Digital twin simulation for urban environmental planning with real sensor fusion & real-time forecasting.", tech: "Digital Twin • AI • Real-time data" }
+    ];
+
+    // gallery items with detailed captions (stylish photo descriptions)
+    const galleryData = [
+        { imgId: "1ktQmBkmDgZ8bgYVPyOZ6tJRtnJQyZ9Wn", category: "lab", caption: "⚡ NEURAL INTERFACE CALIBRATION — Abdullah testing early haptic feedback gloves for robotic teleoperation. (Biomechatronics Lab, 2024)" },
+        { imgId: "1naNmsXlf_nv52VNlVj7Q79PiktYNSeb6", category: "events", caption: "🏆 INTERNATIONAL ROBOTICS SUMMIT 2023 — receiving Young Innovator Award for SHSS prototype. Singapore Expo." },
+        { imgId: "1e_M1OySW5DJMbyFBa8kfoeoLh7UWhOQ8", category: "events", caption: "🌍 GLOBAL AI FOR GOOD CEREMONY — Abdullah presenting sustainable automation framework. Geneva, 2024." },
+        { imgId: "1kMd2rviIyHX6immdT_-YyuOiEY5sGK4Z", category: "lab", caption: "🔬 PROTOTYPING SELF-HEALING SOIL SENSOR ARRAY — inside the cybernetics lab, assembling neural probes (March 2024)." },
+        { imgId: "1Ta-81SYMWLIWRQ7SPKMId9jhSDI8PEiU", category: "field", caption: "🌾 FIELD DEPLOYMENT — semi-arid region, drone swarm seeding mission. Real-time soil data transmission overlay (March 2025)." },
+        { imgId: "1OyBnf6UWKkYmNcKZCih92yIrPOrIPWSb", category: "events", caption: "🎤 KEYNOTE AT ROBOTIC FUTURE CONFERENCE: 'Cybernetic Ecology and Regenerative AI' — Berlin, 2024." },
+        { imgId: "1SgKMw_gNT-92AQzOWGCK_eEmDZmAAImn", category: "field", caption: "📊 SOIL REGENERATION PILOT — Before vs After analysis using SHSS technology. 87% microbial restoration observed." },
+        { imgId: "1yq74h95maRWB3zuWJkQznhuiB78ksd6h", category: "lab", caption: "🦾 EARLY PROTOTYPE: AI-driven biomechanical hand for environmental sampling. 16 DOF tactile sensing (2023)." },
+        { imgId: "1qXtpi4KfCE2v8TRi1NcvEbrLTR0PVb4L", category: "field", caption: "🛸 DRONE IMAGERY OVERLAY — real-time soil health mapping, Northern region. Multispectral analysis & NDVI." }
+    ];
+
+    const achievementsData = [
+        { imgId: "1naNmsXlf_nv52VNlVj7Q79PiktYNSeb6", title: "INTERNATIONAL ROBOTICS SUMMIT WINNER", desc: "First place in sustainable automation category, Singapore 2023 — SHSS recognized as breakthrough." },
+        { imgId: "1e_M1OySW5DJMbyFBa8kfoeoLh7UWhOQ8", title: "AI FOR EARTH GOLD MEDAL", desc: "Global recognition for AI-driven environmental restoration, UNEP sponsored award 2024." },
+        { imgId: "1kMd2rviIyHX6immdT_-YyuOiEY5sGK4Z", title: "CYBER-PHYSICAL SYSTEMS PATENT", desc: "Patent filed for self-regulating soil sensor network (USPTO #2024-1189)." },
+        { imgId: "1Ta-81SYMWLIWRQ7SPKMId9jhSDI8PEiU", title: "TECH FOR GOOD FELLOWSHIP", desc: "UNEP fellowship for climate robotics innovations, awarded to 12 global fellows." },
+        { imgId: "1OyBnf6UWKkYmNcKZCih92yIrPOrIPWSb", title: "YOUNG SCIENTIST AWARD", desc: "National Academy of Engineering, 2024 — for contributions to adaptive robotics." },
+        { imgId: "1SgKMw_gNT-92AQzOWGCK_eEmDZmAAImn", title: "BEST INNOVATION - ROBOTICS", desc: "Asia-Pacific Robotics Expo 2024: Gold medal for SHSS field implementation." }
+    ];
+
+    function getImageUrl(id) {
+        return `https://lh3.googleusercontent.com/d/${id}=s900`;
+    }
+
+    // Helper render functions
+    function renderProjects(category) {
+        const container = document.getElementById('projectsContainer');
+        const filtered = category === 'all' ? projectsData : projectsData.filter(p => p.category === category);
+        container.innerHTML = filtered.map(proj => `
+            <div class="project-card">
+                <div class="project-icon"><i class="${proj.icon}"></i></div>
+                <h3 style="color:#0ff; margin-bottom:0.6rem;">${proj.title}</h3>
+                <p style="margin:0.5rem 0; font-size:0.9rem;">${proj.desc}</p>
+                <div style="font-size:0.7rem; color:#aaf; margin-top:0.8rem;">⚙️ ${proj.tech}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderGallery(category) {
+        const container = document.getElementById('galleryContainer');
+        const filtered = category === 'all' ? galleryData : galleryData.filter(g => g.category === category);
+        container.innerHTML = filtered.map(item => `
+            <div class="gallery-item-cat" onclick="openLightbox('${getImageUrl(item.imgId)}')">
+                <img src="${getImageUrl(item.imgId)}" alt="gallery visual" loading="lazy" onerror="this.src='https://picsum.photos/id/95/400/300'">
+                <div class="img-caption"><i class="fas fa-camera-retro"></i> ${item.caption}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderAchievements() {
+        const container = document.getElementById('achievementsContainer');
+        container.innerHTML = achievementsData.map(ach => `
+            <div class="project-card" onclick="openLightbox('${getImageUrl(ach.imgId)}')" style="cursor:pointer;">
+                <i class="fas fa-award" style="color:#ffd966; font-size:2rem;"></i>
+                <h3 style="margin:0.7rem 0; color:#0ff;">${ach.title}</h3>
+                <p style="font-size:0.85rem;">${ach.desc}</p>
+                <div style="margin-top:0.5rem; font-size:0.7rem; color:#6cf;"><i class="fas fa-certificate"></i> click to view</div>
+            </div>
+        `).join('');
+    }
+
+    // ------ EVENT LISTENERS for categories ------
+    document.querySelectorAll('#projectTabs .cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#projectTabs .cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.getAttribute('data-cat'));
+        });
+    });
+
+    document.querySelectorAll('#galleryTabs .cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#galleryTabs .cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(btn.getAttribute('data-catg'));
+        });
+    });
+
+    // lightbox global
+    window.openLightbox = function(src) {
+        const modal = document.getElementById('lightboxModal');
+        const modalImg = document.getElementById('lightboxImg');
+        modal.style.display = 'flex';
+        modalImg.src = src;
+    };
+    window.closeLightbox = function() {
+        document.getElementById('lightboxModal').style.display = 'none';
+    };
+
+    // contact form handling (demo)
+    document.getElementById('sendMsgBtn')?.addEventListener('click', () => {
+        const name = document.getElementById('contactName')?.value || 'anonymous';
+        const email = document.getElementById('contactEmail')?.value;
+        const msg = document.getElementById('contactMsg')?.value;
+        if (!email && !msg) {
+            alert("⟡ Neural link incomplete: please input at least email and message ⟡");
+        } else {
+            alert(`⟡ Transmission received, ${name || 'innovator'}. Abdullah's AI will establish secure channel.`);
+            document.getElementById('contactName').value = '';
+            document.getElementById('contactEmail').value = '';
+            document.getElementById('contactMsg').value = '';
+        }
+    });
+
+    // navigation smooth
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === "#" || href === "") return;
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    // initial renders
+    renderProjects('all');
+    renderGallery('all');
+    renderAchievements();
+</script>
+</body>
+</html>
